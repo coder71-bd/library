@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <img src="images/library.jpg" alt="a library" />
+    <div class="book_info_container">
+      <h1>My Library</h1>
+      <div class="book_info">
+        <h2>Books</h2>
+        <div class="main_info">
+          <p class="total_el">Total: 0</p>
+          <p class="imp_el">Important: 0</p>
+          <p class="unimp_el">Unimportant: 0</p>
+          <p class="read_el">Read: 0</p>
+          <p class="unread_el">Unread: 0</p>
+        </div>
+        <button class="add_book">Add New Book</button>
+      </div>
+      <div class="book_container"></div>
+    </div>
+    <form class="hide">
+      <div class="form_container">
+        <div>
+          <input
+            id="author"
+            type="text"
+            placeholder="Author name"
+            maxlength="20"
+            required
+          />
+        </div>
+        <div>
+          <input
+            id="title"
+            type="text"
+            placeholder="Book Title"
+            maxlength="20"
+            required
+          />
+        </div>
+        <div>
+          <input id="page" type="number" placeholder="Page No." required />
+        </div>
+        <div>
+          <label for="importance">Importance</label>
+          <div>
+            <select id="importance">
+              <option>important</option>
+              <option>unimportant</option>
+            </select>
+          </div>
+        </div>
+        <div class="radio">
+          <label for="isitread">Is it read?</label>
+          <div id="is_it_read" name="isitread">
+            <span>
+              <input type="radio" name="readorunread" value="read" checked />
+              <label for="readorunread">read</label>
+            </span>
+            <span>
+              <input type="radio" name="readorunread" value="unread" />
+              <label for="readorunread">unread</label>
+            </span>
+          </div>
+        </div>
+        <div class="btn_container">
+          <button type="submit" class="add">Add Book</button>
+          <button class="cancel">Cancel</button>
+        </div>
+      </div>
+    </form>
+    <script src="/js/library.js"></script>
+  </body>
+</html>

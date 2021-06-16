@@ -3,7 +3,7 @@
 <div align="center">
   <h3>
   <!--add netlify link here-->
-    <a href="">
+    <a href="https://yourlibrary.netlify.app/">
       Live Demo
     </a>
   </h3>
@@ -14,7 +14,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
-  - [Built With](#built-with)
+- [Built With](#built-with)
 - [Features](#features)
 - [Contact](#contact)
 
@@ -22,7 +22,7 @@
 
 ## Overview
 
-![](<!-- add image here-->)
+![](./images/libraryapp.png)
 
 ### Built With
 

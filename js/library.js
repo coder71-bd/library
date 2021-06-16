@@ -73,7 +73,7 @@ function book(obj) {
   }
   const deleteBtn = document.createElement('button')
   deleteBtn.classList.add('delete')
-  deleteBtn.textContent = 'delete' //add delete icon here
+  deleteBtn.textContent = 'delete'
   BiggerDiv.appendChild(deleteBtn)
   deleteBtn.addEventListener('click', () => {
     const elemForDelete = deleteBtn.parentElement
@@ -96,6 +96,11 @@ function book(obj) {
     readEl.textContent = `Read: ${read}`
     unReadEl.textContent = `unread: ${unread}`
   })
+
+  //update localstorage
+  // myLibrary = myLibrary.filter((elem) => elem != undefined)
+  deleteBtn.addEventListener('click', setLibrary)
+
   bookContainer.appendChild(BiggerDiv)
 }
 
@@ -120,9 +125,17 @@ function handleForm(e) {
   form.classList.replace('show', 'hide')
   //toogle importance and read
   const toggleImp = document.querySelectorAll('.toggle_imp')
-  toggleImp.forEach((elem) => elem.addEventListener('click', toggleImpFunc))
+  toggleImp.forEach((elem) => {
+    elem.addEventListener('click', toggleImpFunc)
+    //update localstorage
+    elem.addEventListener('click', setLibrary)
+  })
   const toggleRead = document.querySelectorAll('.toggle_read')
-  toggleRead.forEach((elem) => elem.addEventListener('click', toggleReadFunc))
+  toggleRead.forEach((elem) => {
+    elem.addEventListener('click', toggleReadFunc)
+    //update localstorage
+    elem.addEventListener('click', setLibrary)
+  })
 
   //collect this value to update book info
   total = myLibrary.filter((elem) => elem != undefined).length
@@ -172,3 +185,63 @@ cancelBtn.addEventListener('click', (e) => {
 addNewBook.addEventListener('click', () => {
   form.classList.replace('hide', 'show')
 })
+
+//set localstorage
+
+function setLibrary() {
+  localStorage.setItem('library', JSON.stringify(myLibrary))
+}
+
+form.addEventListener('submit', setLibrary)
+
+//get library from localstorage
+function getLibrary() {
+  const libFromStorage = localStorage.getItem('library')
+  libFromStorage ? (myLibrary = JSON.parse(libFromStorage)) : ''
+  myLibrary = myLibrary.map((elem) => {
+    if (elem != null) {
+      return new Book(
+        elem.author,
+        elem.title,
+        elem.page,
+        elem.importance,
+        elem.read
+      )
+    }
+  })
+  myLibrary.forEach((elem) => {
+    if (elem != null) {
+      book(elem)
+    }
+  })
+  console.log(myLibrary)
+  const toggleImp = document.querySelectorAll('.toggle_imp')
+  toggleImp.forEach((elem) => {
+    elem.addEventListener('click', toggleImpFunc)
+    //update localstorage
+    elem.addEventListener('click', setLibrary)
+  })
+  const toggleRead = document.querySelectorAll('.toggle_read')
+  toggleRead.forEach((elem) => {
+    elem.addEventListener('click', toggleReadFunc)
+    //update localstorage
+    elem.addEventListener('click', setLibrary)
+  })
+
+  myLibrary = myLibrary.filter((elem) => elem != undefined)
+  //collect this value to update book info
+  total = myLibrary.filter((elem) => elem != undefined).length
+  important = myLibrary.filter((elem) => elem.importance === 'important').length
+  unImportant = total - important
+  read = myLibrary.filter((elem) => elem.read === 'read').length
+  unread = total - read
+
+  //udate info in book elements
+  totalEl.textContent = `Total: ${total}`
+  impEl.textContent = `Important: ${important}`
+  unImpEl.textContent = `Unimportant: ${unimportant}`
+  readEl.textContent = `Read: ${read}`
+  unReadEl.textContent = `Unread: ${unread}`
+}
+
+window.addEventListener('load', getLibrary)
